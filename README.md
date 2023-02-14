@@ -33,7 +33,6 @@ python train.py \
         --learning_rate 2e-5 \
         --batch_size 6 \
         --max_steps 50000 \
-        --device="CUDA" \
 	      --no_fp16 \
         --log_freq 1 \
         --eval_freq 1000 \
@@ -50,7 +49,6 @@ python -m torch.distributed.launch \
         --learning_rate 2e-5 \
         --batch_size 6 \
         --max_steps 50000 \
-        --device="CUDA" \
 	      --no_fp16 \
         --log_freq 1 \
         --eval_freq 1000 \

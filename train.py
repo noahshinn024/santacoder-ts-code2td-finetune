@@ -30,7 +30,6 @@ def get_args():
     parser.add_argument("--batch_size", type=int, default=6)
     parser.add_argument("--max_steps", type=int, default=10000)
 
-    parser.add_argument("--device", type=str, default=f'{"cuda" if torch.cuda.is_available() else "cpu"}')
     parser.add_argument("--seed", type=int, default=0)
     parser.add_argument("--no_fp16", action="store_false")
     parser.add_argument("--output_dir", type=str, default="./checkpoints")
@@ -114,7 +113,7 @@ def run_training(args, model, tokenizer, train_set, eval_set, metric):
 
 def main(args):
     print("Loading the model")
-    model = AutoModelForCausalLM.from_pretrained(args.model_path, trust_remote_code=True).to(args.device)
+    model = AutoModelForCausalLM.from_pretrained(args.model_path, trust_remote_code=True)
     print("Loading the tokenzizer")
     tokenizer = AutoTokenizer.from_pretrained("bigcode/santacoder", use_auth_token=True)
     print("Loading the train and eval datasets")
