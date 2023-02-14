@@ -34,10 +34,10 @@ python train.py \
         --batch_size 6 \
         --max_steps 50000 \
         --device="CUDA" \
-	      --no_fp16
+	      --no_fp16 \
         --log_freq 1 \
         --eval_freq 1000 \
-        --save_freq 1000 \
+        --save_freq 1000
 ```
 
 To run on multiple GPUs
@@ -51,8 +51,8 @@ python -m torch.distributed.launch \
         --batch_size 6 \
         --max_steps 50000 \
         --device="CUDA" \
-	      --no_fp16
+	      --no_fp16 \
         --log_freq 1 \
         --eval_freq 1000 \
-        --save_freq 1000 \
+        --save_freq 1000
 ```
