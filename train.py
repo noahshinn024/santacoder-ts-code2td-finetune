@@ -44,7 +44,7 @@ def create_datasets(args, tokenizer):
         if "code" not in examples or "declarations" not in examples:
             raise ValueError("The dataset must contain 'code' and 'declarations' columns.")
         
-        inputs = [TASK_PREFIX + code[:2000] for code in examples["code"]]
+        inputs = [TASK_PREFIX + code for code in examples["code"]]
         model_inputs = tokenizer(inputs, max_length=2048, truncation=True)
 
         labels = tokenizer(text_target=examples["declarations"], max_length=256, truncation=True)
