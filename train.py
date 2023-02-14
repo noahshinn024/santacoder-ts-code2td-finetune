@@ -116,6 +116,7 @@ def main(args):
     model = AutoModelForCausalLM.from_pretrained(args.model_path, trust_remote_code=True)
     print("Loading the tokenzizer")
     tokenizer = AutoTokenizer.from_pretrained("bigcode/santacoder", use_auth_token=True)
+    tokenizer.pad_token = tokenizer.eos_token
     print("Loading the train and eval datasets")
     train_set, eval_set = create_datasets(args, tokenizer)
     metric = evaluate.load("google_bleu")

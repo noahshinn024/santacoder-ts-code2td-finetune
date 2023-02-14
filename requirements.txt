@@ -4,3 +4,4 @@ torch
 evaluate
 numpy
 wandb
+nltk
