@@ -46,11 +46,6 @@ def create_datasets(args, tokenizer):
 
         labels = tokenizer(text_target=examples["declarations"], max_length=2048, truncation=True)
         
-        # Only keep samples with token sizes less than 2048
-        indices = [i for i, input_ids in enumerate(model_inputs["input_ids"]) if np.count_nonzero(input_ids != tokenizer.pad_token_id) < 2048]
-        model_inputs = {k: [v[i] for i in indices] for k, v in model_inputs.items()}
-        labels = {k: [v[i] for i in indices] for k, v in labels.items()}
-
         model_inputs["labels"] = labels["input_ids"]
         return model_inputs
     ds = load_dataset(args.dataset_name)
