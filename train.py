@@ -29,6 +29,7 @@ def get_args():
     parser.add_argument("--learning_rate", type=float, default=2e-5)
     parser.add_argument("--batch_size", type=int, default=6)
     parser.add_argument("--max_steps", type=int, default=10000)
+    parser.add_argument("--num_epochs", type=int, default=1000)
 
     parser.add_argument("--seed", type=int, default=0)
     parser.add_argument("--no_fp16", action="store_false")
@@ -45,9 +46,9 @@ def create_datasets(args, tokenizer):
             raise ValueError("The dataset must contain 'code' and 'declarations' columns.")
         
         inputs = [TASK_PREFIX + code for code in examples["code"]]
-        model_inputs = tokenizer(inputs, max_length=2048, truncation=True)
+        model_inputs = tokenizer(inputs, max_length=args.seq_length, truncation=True)
 
-        labels = tokenizer(text_target=examples["declarations"], max_length=256, truncation=True)
+        labels = tokenizer(text_target=examples["declarations"], max_length=args.seq_length, truncation=True)
         
         model_inputs["labels"] = labels["input_ids"]
         return model_inputs
@@ -84,7 +85,7 @@ def run_training(args, model, tokenizer, train_set, eval_set, metric):
         per_device_eval_batch_size=args.batch_size,
         weight_decay=0.01,
         save_total_limit=3,
-        num_train_epochs=4,
+        num_train_epochs=args.num_epochs,
         predict_with_generate=True,
         fp16=args.no_fp16,
         run_name=f'code2td-{args.model_path.split("/")[-1]}',
