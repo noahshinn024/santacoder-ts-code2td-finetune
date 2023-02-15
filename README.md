@@ -1,5 +1,8 @@
 # Fine-tuning for TypeScript Code to Type Declaration Code Generation
 
+#### Requirements
+torch>=1.7
+
 ## Setup
 
 First, clone this repo:
