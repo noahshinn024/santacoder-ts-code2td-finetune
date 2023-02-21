@@ -32,28 +32,23 @@ To run on 1 GPU
 python train.py \
         --model_path="noahshinn024/santacoder-ts" \
         --dataset_name="noahshinn024/ts-code2td" \
-        --seq_length 2048 \
+        --seq_length 1024 \
         --learning_rate 2e-5 \
-        --batch_size 6 \
-        --max_steps 50000 \
-	      --no_fp16 \
-        --log_freq 1 \
-        --eval_freq 1000 \
-        --save_freq 1000
+        --batch_size 1 \
+        --no_fp16 \
+        --num_epochs 10
 ```
 
 To run on multiple GPUs
 ```bash
+
 python -m torch.distributed.launch \
         --nproc_per_node number_of_gpus train.py \
         --model_path="noahshinn024/santacoder-ts" \
         --dataset_name="noahshinn024/ts-code2td" \
-        --seq_length 2048 \
+        --seq_length 1024 \
         --learning_rate 2e-5 \
-        --batch_size 6 \
-        --max_steps 50000 \
-	      --no_fp16 \
-        --log_freq 1 \
-        --eval_freq 1000 \
-        --save_freq 1000
+        --batch_size 1 \
+        --no_fp16 \
+        --num_epochs 10
 ```
