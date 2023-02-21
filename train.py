@@ -40,6 +40,8 @@ def get_args():
     parser.add_argument("--learning_rate", type=float, default=2e-5)
     parser.add_argument("--batch_size", type=int, default=2)
     parser.add_argument("--num_epochs", type=int, default=10)
+    parser.add_argument("--num_warmup_steps", type=int, default=50)
+    parser.add_argument("--lr_scheduler_type", type=str, default="cosine")
     parser.add_argument("--gradient_accumulation_steps", type=int, default=1)
 
     parser.add_argument("--seed", type=int, default=0)
@@ -90,11 +92,13 @@ def run_training(args, model, tokenizer, train_set, eval_set, metric):
         evaluation_strategy="epoch",
         save_strategy="steps",
         save_steps=500,
-        logging_strategy="epoch",
+        logging_strategy="steps",
+        logging_steps=10,
         learning_rate=args.learning_rate,
         per_device_train_batch_size=args.batch_size,
         per_device_eval_batch_size=args.batch_size,
         weight_decay=0.01,
+        lr_scheduler_type=args.lr_scheduler_type,
         save_total_limit=3,
         gradient_accumulation_steps=args.gradient_accumulation_steps,
         num_train_epochs=args.num_epochs,

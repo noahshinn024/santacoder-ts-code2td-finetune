@@ -1,7 +1,7 @@
 # Fine-tuning for TypeScript Code to Type Declaration Code Generation
 
 #### Requirements
-torch>=1.7
+`torch>=1.7`
 
 ## Setup
 
