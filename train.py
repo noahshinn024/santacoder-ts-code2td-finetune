@@ -3,10 +3,10 @@ Fine-Tune a TypeScript fine-tuned SantaCoder model for code to type declaration 
 """
 
 import os
-import torch
 import argparse
 import evaluate
 import numpy as np
+from functools import partial
 from datasets.load import load_dataset
 from transformers import (
     AutoModelForCausalLM,
@@ -83,6 +83,7 @@ def run_training(args, model, tokenizer, train_set, eval_set, metric):
         result["gen_len"] = np.mean(prediction_lens)
 
         return {k: round(v, 4) for k, v in result.items()}
+    compute_metrics_with_tokenizer_partial = partial(compute_metrics, tokenizer=tokenizer)
     
     train_set.start_iteration = 0
 
@@ -117,7 +118,7 @@ def run_training(args, model, tokenizer, train_set, eval_set, metric):
         eval_dataset=eval_set,
         tokenizer=tokenizer,
         data_collator=data_collator,
-        compute_metrics=compute_metrics,
+        compute_metrics=compute_metrics_with_tokenizer_partial,
     )
 
     print("Training...")
